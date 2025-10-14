@@ -20,8 +20,7 @@ PROGRAM _CYCLIC
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
 		IF task.status.zone[convIdx].startOfZone THEN
 			task.status.zone[convIdx].zoneBusy := TRUE;
-		END_IF
-		IF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
+		ELSIF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
 				task.status.zone[convIdx].zoneBusy := FALSE;
 		END_IF
 	END_FOR
@@ -49,8 +48,10 @@ PROGRAM _CYCLIC
 	END_IF
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
-		IF task.status.zone[convIdx].startOfZone THEN
+		IF task.status.zone[convIdx].zoneBusy THEN
 			io.conveyor[convIdx].doRunForward := TRUE;
+		ELSE
+			io.conveyor[convIdx].doRunForward := FALSE;
 		END_IF
 	END_FOR
 	

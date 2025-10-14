@@ -14,13 +14,15 @@ PROGRAM _CYCLIC
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
 		task.status.zone[convIdx].startOfZone := io.conveyor[convIdx].diPhotoeyeEntrance;
-	 	task.status.zone[convIdx].endOfZone := io.conveyor[convIdx].diPhotoeyeExit;
+		task.status.zone[convIdx].endOfZone := io.conveyor[convIdx].diPhotoeyeExit;
 	END_FOR
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
 		IF task.status.zone[convIdx].startOfZone THEN
 			task.status.zone[convIdx].zoneBusy := TRUE;
-		ELSIF task.status.zone[convIdx].zoneBusy := FALSE;
+		END_IF
+		IF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
+				task.status.zone[convIdx].zoneBusy := FALSE;
 		END_IF
 	END_FOR
 
@@ -51,6 +53,13 @@ PROGRAM _CYCLIC
 			io.conveyor[convIdx].doRunForward := TRUE;
 		END_IF
 	END_FOR
+	
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		task.status.zone[convIdx].endOfZone_ := task.status.zone[convIdx].endOfZone;
+	END_FOR
+				
+			
+			
 	 
 END_PROGRAM
 

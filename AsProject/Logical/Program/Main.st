@@ -21,7 +21,44 @@ PROGRAM _CYCLIC
 		task.status.zone[convIdx].startOfZone := io.conveyor[convIdx].diPhotoeyeEntrance;
 		task.status.zone[convIdx].endOfZone := io.conveyor[convIdx].diPhotoeyeExit;
 	END_FOR
-	
+
+//////// Case Logic
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		
+		
+		
+		
+		CASE state OF 
+			
+			WAITING_FOR_PACKAGE:
+				
+				io.conveyor[convIdx].doRunForward := FALSE;
+				
+				IF task.status.zone[convIdx].startOfZone THEN
+					task.status.zone[convIdx].zoneBusy := TRUE;
+				ELSIF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
+					task.status.zone[convIdx].zoneBusy := FALSE;
+					state := 
+				END_IF
+				
+				
+			HAS_PACKAGE:
+				io.conveyor[0].doRunForward := FALSE;
+				IF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
+					task.status.zone[convIdx].zoneBusy := FALSE;
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+	END_FOR	
+		
+		
 //////// Zone Busy State Logic	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
 		IF task.status.zone[convIdx].startOfZone THEN

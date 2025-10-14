@@ -47,7 +47,7 @@ PROGRAM _CYCLIC
 
 ////////// Conveyor Run Logic
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
-		IF task.status.zone[convIdx].zoneBusy OR NOT task.status.zone[convIdx].overrun.Q THEN
+		IF task.status.zone[convIdx].zoneBusy OR task.status.zone[convIdx].overrun.IN AND NOT task.status.zone[convIdx].overrun.Q THEN
 			io.conveyor[convIdx].doRunForward := TRUE;
 		ELSE
 			io.conveyor[convIdx].doRunForward := FALSE;

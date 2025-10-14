@@ -1,0 +1,3 @@
+VAR
+	counter : UDINT;
+END_VAR

@@ -1,0 +1,13 @@
+VAR
+	io : IO_typ;
+END_VAR
+VAR CONSTANT
+	MAX_CONVEYORS : UDINT := 4;
+	MAI_CONVEYORS : UDINT := MAX_CONVEYORS-1;
+END_VAR
+VAR
+	convIdx : UDINT;
+	spawnTimer : TON := (PT:=T#400ms);
+	spawnReset : TON := (PT:=T#50ms);
+	task : Task_typ;
+END_VAR

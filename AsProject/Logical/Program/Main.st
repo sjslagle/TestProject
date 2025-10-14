@@ -26,30 +26,29 @@ PROGRAM _CYCLIC
 	END_FOR
 
 	
-	
-	IF NOT task.status.zone[0].zoneBusy THEN
-		io.spawnCase := TRUE;
-	END_IF
-	
-	IF io.spawnCase THEN
+	IF task.status.zone[0].zoneBusy THEN
 		spawnTimer.IN := TRUE;
 	END_IF
 	
 	IF spawnTimer.Q THEN
 		io.spawnCase := TRUE;
+		spawnTimer.IN := FALSE;
 	END_IF		
 	
-	IF io.spawnCase THEN
-		spawnReset.IN := TRUE;
-	END_IF
-	
-	IF spawnReset.Q THEN
-		spawnReset.IN := io.spawnCase := spawnTimer.IN := FALSE;
-	END_IF
+//	IF io.spawnCase THEN
+//		spawnReset.IN := TRUE;
+//	END_IF
+//	
+//	IF spawnReset.Q THEN
+//		spawnReset.IN := io.spawnCase := spawnTimer.IN := TRUE;
+//	END_IF
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
-		IF task.status.zone[convIdx].zoneBusy THEN
+		IF task.status.zone[convIdx].zoneBusy OR task.status.zone[convIdx].overrun.IN THEN
 			io.conveyor[convIdx].doRunForward := TRUE;
+			task.status.zone[convIdx].overrun.IN := TRUE;
+		ELSIF task.status.zone[0].overrun.Q THEN
+			io.conveyor[convIdx].doRunForward := FALSE;
 		ELSE
 			io.conveyor[convIdx].doRunForward := FALSE;
 		END_IF
@@ -58,7 +57,11 @@ PROGRAM _CYCLIC
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
 		task.status.zone[convIdx].endOfZone_ := task.status.zone[convIdx].endOfZone;
 	END_FOR
-				
+	
+	IF task.status.zone[0].zoneBusy THEN
+		io.spawnCase := FALSE;
+	END_IF
+	
 			
 			
 	 

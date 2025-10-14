@@ -29,5 +29,6 @@ TYPE
 		startOfZone : BOOL;
 		endOfZone_ : BOOL;
 		endOfZone : BOOL;
+		overrun : TON := (PT:=T#1000ms);
 	END_STRUCT;
 END_TYPE

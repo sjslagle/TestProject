@@ -2,10 +2,11 @@
 TYPE
 	State_enum : 
 		(
-		IDLE,
 		WAITING_FOR_PACKAGE,
 		HAS_PACKAGE,
-		READY_TO_SEND_PACKAGE
+		READY_TO_SEND_PACKAGE,
+		RECIEVING_PACKAGE,
+		SENDING_PACKAGE
 		);
 	Task_typ : 	STRUCT 
 		status : Task_Status_typ;

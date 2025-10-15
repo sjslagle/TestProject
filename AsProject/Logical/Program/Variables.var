@@ -4,4 +4,6 @@ VAR
 	spawnReset : TON := (PT:=T#1000ms);
 	spawnTimer : TON := (PT:=T#4000ms);
 	task : Task_typ;
+	axis1Handler : MpAxisBasic;
+	axis1Parameters : MpAxisBasicParType;
 END_VAR

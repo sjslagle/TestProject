@@ -18,6 +18,13 @@ PROGRAM _CYCLIC
 		task.status.zone[convIdx].overrun();
 	END_FOR
 
+	axis1Handler.MpLink := ADR(gAxis_1);
+	axis1Handler.Parameters := ADR(axis1Parameters);
+	axis1Handler.Enable := TRUE;
+	
+	io.pusher.aoActualPosition := 100 * LREAL_TO_REAL(axis1Handler.Position); 
+	
+	
 //////// Case Logic
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
@@ -31,7 +38,6 @@ PROGRAM _CYCLIC
 				
 				
 				IF task.status.zone[convIdx].startOfZone THEN
-					task.status.zone[convIdx].zoneBusy := TRUE;
 					task.status.zone[convIdx].readyToReceive := FALSE;
 					task.status.zone[convIdx].runForward := TRUE;
 					
@@ -69,14 +75,14 @@ PROGRAM _CYCLIC
 	END_FOR	
 		
 		
-////////// Zone Busy State Logic	
-//	FOR convIdx := 0 TO MAI_CONVEYORS DO
-//		IF task.status.zone[convIdx].startOfZone THEN
-//			task.status.zone[convIdx].zoneBusy := TRUE;
-//		ELSIF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
-//			task.status.zone[convIdx].zoneBusy := FALSE;
-//		END_IF
-//	END_FOR
+//////// Zone Busy State Logic	
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		IF task.status.zone[convIdx].startOfZone THEN
+			task.status.zone[convIdx].zoneBusy := TRUE;
+		ELSIF task.status.zone[convIdx].endOfZone_ AND NOT task.status.zone[convIdx].endOfZone THEN
+			task.status.zone[convIdx].zoneBusy := FALSE;
+		END_IF
+	END_FOR
 	
 
 	
@@ -91,33 +97,35 @@ PROGRAM _CYCLIC
 	END_IF		
 
 //////////// Conveyor Run Logic
-//	FOR convIdx := 0 TO MAI_CONVEYORS DO
-//		IF task.status.zone[convIdx].zoneBusy OR task.status.zone[convIdx].overrun.IN AND NOT task.status.zone[convIdx].overrun.Q THEN
-//			io.conveyor[convIdx].doRunForward := TRUE;
-//		ELSE
-//			io.conveyor[convIdx].doRunForward := FALSE;
-//		END_IF
-//	END_FOR
-//	
-///////////// Overrun timer Logic	
-//	FOR convIdx := 0 TO MAI_CONVEYORS DO
-//		IF NOT task.status.zone[convIdx].endOfZone AND task.status.zone[convIdx].endOfZone_ THEN
-//			task.status.zone[convIdx].overrun.IN := TRUE;
-//		END_IF
-//	END_FOR
-//	
-//	FOR convIdx := 0 TO MAI_CONVEYORS DO
-//		IF task.status.zone[convIdx].overrun.Q THEN
-//			task.status.zone[convIdx].overrun.IN:= FALSE;
-//		END_IF
-//	END_FOR
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		IF task.status.zone[convIdx].zoneBusy OR task.status.zone[convIdx].overrun.IN AND NOT task.status.zone[convIdx].overrun.Q THEN
+			io.conveyor[convIdx].doRunForward := TRUE;
+		ELSE
+			io.conveyor[convIdx].doRunForward := FALSE;
+		END_IF
+	END_FOR
+	
+/////////// Overrun timer Logic	
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		IF NOT task.status.zone[convIdx].endOfZone AND task.status.zone[convIdx].endOfZone_ THEN
+			task.status.zone[convIdx].overrun.IN := TRUE;
+		END_IF
+	END_FOR
+	
+	FOR convIdx := 0 TO MAI_CONVEYORS DO
+		IF task.status.zone[convIdx].overrun.Q THEN
+			task.status.zone[convIdx].overrun.IN:= FALSE;
+		END_IF
+	END_FOR
 //	
 //////// Last scan for falling edge		
 		FOR convIdx := 0 TO MAI_CONVEYORS DO
 		task.status.zone[convIdx].endOfZone_ := task.status.zone[convIdx].endOfZone;
 		END_FOR	
 							
-MapOutputs;
+	MapOutputs;
+	axis1Handler();
+	
 							
 END_PROGRAM
 

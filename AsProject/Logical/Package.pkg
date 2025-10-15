@@ -8,5 +8,6 @@
     <Object Type="File">IO.typ</Object>
     <Object Type="File">IO.var</Object>
     <Object Type="Program" Language="IEC">Program</Object>
+    <Object Type="Package">Sequencing</Object>
   </Objects>
 </Package>

@@ -20,5 +20,12 @@ TYPE
 		endOfZone_ : BOOL;
 		endOfZone : BOOL;
 		overrun : TON := (PT:=T#500ms);
+		runForward : BOOL;
+		runRerverse : BOOL;
+		readyToReceive : BOOL;
+		readyToSend : BOOL;
+		upstreamReadyToSend : BOOL;
+		downstreamReadyToReceive : BOOL;
+		state : State_enum;
 	END_STRUCT;
 END_TYPE

@@ -7,6 +7,8 @@ PROGRAM _INIT
 END_PROGRAM
 
 PROGRAM _CYCLIC
+	
+	MapInputs;
 
 	///// Timer Init
 	counter := counter +1;
@@ -109,6 +111,9 @@ PROGRAM _CYCLIC
 		task.status.zone[convIdx].endOfZone_ := task.status.zone[convIdx].endOfZone;
 	END_FOR		
 	 
+							
+MapOutputs;
+							
 END_PROGRAM
 
 PROGRAM _EXIT

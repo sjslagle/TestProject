@@ -3,7 +3,7 @@
 ACTION PiperModuleInterface:
 
 	//Give this module a name so it is easier to debug
-	ModuleInterface.ModuleName:=	'Program';
+	ModuleInterface.ModuleName:=	'programUsingPiper';
 
 	//Add a module to the Piper
 	Module.ModuleInterface:=	ADR(ModuleInterface);
@@ -12,14 +12,19 @@ ACTION PiperModuleInterface:
 
 	// Handle any machine states that this module needs to respond to
 	CASE ModuleInterface.PiperState OF
-		//		MACH_ST_BOOTING:		
-				MACH_ST_CLEARING:
-		//		MACH_ST_STOPPED:
-		//		MACH_ST_STARTING:
-		//		MACH_ST_IDLE:
-		//		MACH_ST_SUSPENDED:
-		//		MACH_ST_EXECUTE:
-		//		MACH_ST_STOPPING:
+		//MACH_ST_BOOTING:		
+		//MACH_ST_CLEARING
+		//MACH_ST_STOPPED:
+
+		MACH_ST_STARTING:
+			startFlag := TRUE;
+			ModuleInterface.ModuleResponse:=	ModuleInterface.PiperState;
+			
+		//MACH_ST_IDLE:
+		//MACH_ST_SUSPENDED:
+		MACH_ST_EXECUTE:
+			startFlag := TRUE;
+		//MACH_ST_STOPPING:
 		//		MACH_ST_ABORTING:
 		//		MACH_ST_ABORTED:
 		//		MACH_ST_HOLDING:
@@ -35,7 +40,7 @@ ACTION PiperModuleInterface:
 		
 		ELSE
 			ModuleInterface.ModuleResponse:=	ModuleInterface.PiperState;
-		
+			startFlag := FALSE;
 	END_CASE
 
 END_ACTION

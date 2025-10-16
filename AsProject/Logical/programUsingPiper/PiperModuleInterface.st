@@ -29,7 +29,7 @@ ACTION PiperModuleInterface:
 		//		MACH_ST_UNSUSPENDING:
 		MACH_ST_RESETTING:
 			counter := counter + 1 ;
-			IF counter >= 400 THEN
+			IF counter >= 200 THEN
 				ModuleInterface.ModuleResponse:=	ModuleInterface.PiperState;
 			END_IF
 		//		MACH_ST_COMPLETING:

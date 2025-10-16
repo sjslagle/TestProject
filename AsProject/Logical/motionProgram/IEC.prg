@@ -7,5 +7,7 @@
     <File Description="Local variables" Private="true">Variables.var</File>
     <File>MapInputs.st</File>
     <File>MapOutputs.st</File>
+    <File Private="true">PiperModuleInterfaceTemplate.var</File>
+    <File>PiperModuleInterface.st</File>
   </Files>
 </Program>

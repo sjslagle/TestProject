@@ -8,7 +8,6 @@ PROGRAM _CYCLIC
 	
 	Piper_fn_Cyclic(gMachine);
 	
-	 
 END_PROGRAM
 
 PROGRAM _EXIT

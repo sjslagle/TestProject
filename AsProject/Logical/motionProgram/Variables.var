@@ -11,5 +11,6 @@ VAR
 	axisInit : BOOL;
 	systemTimer : TON;
 	pusherState : PusherState_enum;
-	resetFlag : BOOL;
+	pushResetFlag : BOOL;
+	startFlag : BOOL;
 END_VAR

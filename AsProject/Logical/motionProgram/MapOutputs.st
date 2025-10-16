@@ -2,7 +2,7 @@
 ACTION MapOutputs: 
 
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
-		io.conveyor[convIdx].doRunForward := conveyor[convIdx].runForward;
+		io.conveyor[convIdx].doRunForward := conveyor[convIdx].runForward AND startFlag;
 		io.conveyor[convIdx].doRunReverse := conveyor[convIdx].runRerverse;
 	END_FOR
 	

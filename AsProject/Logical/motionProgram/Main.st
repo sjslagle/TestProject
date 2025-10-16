@@ -7,6 +7,8 @@ END_PROGRAM
 
 PROGRAM _CYCLIC
 	
+	PiperModuleInterface;
+	
 	conveyor[3].downstreamReadyToReceive := TRUE;
 	
 	MapInputs;
@@ -14,8 +16,6 @@ PROGRAM _CYCLIC
 	///// Timer Init
 	
 	counter := counter +1;
-	
-
 	
 	
 	FOR convIdx := 0 TO MAI_CONVEYORS DO
@@ -71,16 +71,18 @@ PROGRAM _CYCLIC
 					
 					conveyor[convIdx].readyToReceive := FALSE;	
 					
-					IF NOT conveyor[convIdx].endOfConveyor AND NOT resetFlag THEN 
+					IF NOT conveyor[convIdx].endOfConveyor AND NOT pushResetFlag THEN 
 						conveyor[convIdx].runForward := TRUE;
 										
 					ELSIF conveyor[convIdx].endOfConveyor THEN
 						conveyor[convIdx].state := READY_TO_SEND_PACKAGE;
 						
-					ELSIF resetFlag THEN
+					ELSIF pushResetFlag THEN
 						conveyor[2].state := WAITING_FOR_PACKAGE;
-						resetFlag := FALSE;
-										
+						pushResetFlag := FALSE;
+						
+					ELSE conveyor[convIdx].runForward := FALSE;	
+						
 					END_IF		
 							
 				READY_TO_SEND_PACKAGE:
@@ -95,10 +97,10 @@ PROGRAM _CYCLIC
 				SENDING_PACKAGE:
 						
 					conveyor[convIdx].runForward := TRUE;
-					
+				
 					IF NOT conveyor[convIdx].downstreamReadyToReceive THEN
 						conveyor[convIdx].state := WAITING_FOR_PACKAGE;
-						
+					
 					ELSIF conveyor[3].endOfConveyor_ AND NOT conveyor[3].endOfConveyor THEN
 						conveyor[3].state := WAITING_FOR_PACKAGE;
 					END_IF
@@ -106,7 +108,11 @@ PROGRAM _CYCLIC
 			END_CASE
 									
 		END_FOR	
-			
+		
+		IF gMachine.OUT.State =  MACH_ST_STARTING THEN
+			io.spawnCase := TRUE;
+		END_IF
+
 		IF NOT conveyor[0].readyToReceive THEN
 			io.spawnCase := FALSE;
 		END_IF
@@ -157,7 +163,7 @@ PROGRAM _CYCLIC
 				axisHandler.MoveAbsolute := FALSE;
 				IF NOT axisHandler.MoveAbsolute AND io.pusher.diPusherExtended THEN
 					caseLength := T#0ms;
-					resetFlag := TRUE;
+					pushResetFlag := TRUE;
 					pusherState := RETRACTING;
 				END_IF
 				

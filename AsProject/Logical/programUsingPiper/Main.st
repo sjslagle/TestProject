@@ -1,0 +1,19 @@
+
+PROGRAM _INIT
+	
+	
+	 
+END_PROGRAM
+
+PROGRAM _CYCLIC
+	
+	PiperModuleInterface;
+	
+	
+END_PROGRAM
+
+PROGRAM _EXIT
+
+	 
+END_PROGRAM
+

@@ -1,0 +1,4 @@
+VAR
+	counter : UDINT;
+	piperState : State_enum;
+END_VAR

@@ -19,9 +19,6 @@
         <Variable Name="MAI_CONVEYORS" />
         <Variable Name="MAX_CONVEYORS" />
       </GlobalVariables>
-      <Task Name="Program">
-        <Variable Name="counter" />
-      </Task>
     </Module>
   </DefaultView>
 </OpcUaSource>

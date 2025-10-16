@@ -1,0 +1,15 @@
+VAR
+	spawnTimer : TON := (PT:=T#4000ms);
+	pushReset : TON := (PT:=T#2000ms);
+	counter : UDINT;
+	convIdx : UDINT;
+	conveyor : ARRAY[0..MAI_CONVEYORS] OF Conveyor_type;
+	caseLengthTimer : TON := (PT:=T#10000ms);
+	caseLength : TIME;
+	axisParameters : MpAxisBasicParType;
+	axisHandler : MpAxisBasic;
+	axisInit : BOOL;
+	systemTimer : TON;
+	pusherState : PusherState_enum;
+	resetFlag : BOOL;
+END_VAR

@@ -4,6 +4,8 @@ TYPE
 		aoActualPosition : REAL;
 		diPusherExtended : BOOL;
 		diPusherRetracted : BOOL;
+		doPusherExtend : BOOL;
+		doPusherRetract : BOOL;
 	END_STRUCT;
 	IO_typ : 	STRUCT 
 		conveyor : ARRAY[0..MAI_CONVEYORS]OF IO_Conveyor_typ;

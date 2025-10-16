@@ -7,6 +7,9 @@
     <Object Type="Package" Description="Global libraries">Libraries</Object>
     <Object Type="File">IO.typ</Object>
     <Object Type="File">IO.var</Object>
-    <Object Type="Program" Language="IEC">Program</Object>
+    <Object Type="Program" Language="IEC">motionProgram</Object>
+    <Object Type="Package">Sequencing</Object>
+    <Object Type="Program" Language="IEC">piperProgram</Object>
+    <Object Type="Program" Language="IEC">programUsingPiper</Object>
   </Objects>
 </Package>

@@ -16,15 +16,9 @@
     <Module Name="&lt;Default&gt;">
       <GlobalVariables Name="Global Variables">
         <Variable Name="io" RecursiveEnable="2" />
-        <Variable Name="convIdx" />
         <Variable Name="MAI_CONVEYORS" />
         <Variable Name="MAX_CONVEYORS" />
-        <Variable Name="spawnReset" />
-        <Variable Name="spawnTimer" />
       </GlobalVariables>
-      <Task Name="Program">
-        <Variable Name="counter" />
-      </Task>
     </Module>
   </DefaultView>
 </OpcUaSource>

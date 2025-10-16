@@ -1,0 +1,11 @@
+
+VAR
+	
+	ModuleInterface : Module_Interface_typ;
+	Module : Piper_Module_Fub;
+
+END_VAR
+
+VAR CONSTANT
+
+END_VAR
